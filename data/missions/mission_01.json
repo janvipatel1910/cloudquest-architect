@@ -1,0 +1,158 @@
+{
+  "mission_id": "mission_01",
+  "title": "Launch Day",
+  "level": "Cloud Rookie",
+  "xp_reward": 500,
+
+  "scenario": {
+    "company": "NovaLaunch",
+    "brief": "A small startup is preparing to launch its first public website.",
+    "workload": "The website contains HTML, CSS, JavaScript and images only.",
+    "requirements": [
+      "Low cost",
+      "High availability",
+      "Fast global delivery",
+      "HTTPS",
+      "Minimal operational overhead",
+      "No unnecessary server management",
+      "The website origin should not be directly exposed to the public"
+    ]
+  },
+
+  "questions": [
+    {
+      "id": 1,
+      "title": "Choose the Origin",
+      "question": "The website contains only static files. The customer wants a low-cost solution with the least operational overhead. Which approach best meets these requirements?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Run the website on a dedicated EC2 instance"
+        },
+        {
+          "id": "B",
+          "text": "Store the website files in Amazon S3"
+        },
+        {
+          "id": "C",
+          "text": "Run the website on an EC2 Auto Scaling group"
+        },
+        {
+          "id": "D",
+          "text": "Store the website files in Amazon EBS"
+        }
+      ],
+      "correct_answer": "B",
+      "wrong_hint": "Focus on the words static files and least operational overhead. Does this workload really require a server?",
+      "clue": "Your origin does not need a running server. Think object storage."
+    },
+
+    {
+      "id": 2,
+      "title": "Reach Global Users",
+      "question": "The startup expects users from multiple countries and wants fast content delivery without managing additional servers. Which AWS service should be placed in front of the website origin?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Amazon CloudFront"
+        },
+        {
+          "id": "B",
+          "text": "Amazon RDS"
+        },
+        {
+          "id": "C",
+          "text": "AWS Direct Connect"
+        },
+        {
+          "id": "D",
+          "text": "Amazon EBS"
+        }
+      ],
+      "correct_answer": "A",
+      "wrong_hint": "Look for a service designed to cache and deliver content through globally distributed edge locations.",
+      "clue": "Bring content closer to users through a global content delivery network."
+    },
+
+    {
+      "id": 3,
+      "title": "Secure the Connection",
+      "question": "The customer requires visitors to access the website using HTTPS. Which AWS service can provide and manage the required TLS certificate?",
+      "options": [
+        {
+          "id": "A",
+          "text": "AWS Secrets Manager"
+        },
+        {
+          "id": "B",
+          "text": "AWS Certificate Manager"
+        },
+        {
+          "id": "C",
+          "text": "AWS IAM"
+        },
+        {
+          "id": "D",
+          "text": "Amazon Inspector"
+        }
+      ],
+      "correct_answer": "B",
+      "wrong_hint": "The requirement is specifically about a managed TLS certificate for HTTPS.",
+      "clue": "The architecture needs an AWS-managed certificate attached at the HTTPS entry point."
+    },
+
+    {
+      "id": 4,
+      "title": "Connect the Domain",
+      "question": "The company wants customers to reach the website using its own domain name. Which AWS service is designed to manage DNS records and route the domain to AWS resources?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Amazon Route 53"
+        },
+        {
+          "id": "B",
+          "text": "Amazon VPC"
+        },
+        {
+          "id": "C",
+          "text": "AWS CloudFormation"
+        },
+        {
+          "id": "D",
+          "text": "Amazon GuardDuty"
+        }
+      ],
+      "correct_answer": "A",
+      "wrong_hint": "Think about DNS rather than networking, infrastructure deployment or threat detection.",
+      "clue": "The custom domain needs a DNS service that can direct users toward the application."
+    },
+
+    {
+      "id": 5,
+      "title": "Protect the Origin",
+      "question": "The customer wants users to access the website through CloudFront, but does not want the S3 origin directly exposed to the public. Which design best satisfies this requirement?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Make the S3 bucket public and rely on a difficult bucket name"
+        },
+        {
+          "id": "B",
+          "text": "Keep the S3 bucket private and allow CloudFront controlled access to the origin"
+        },
+        {
+          "id": "C",
+          "text": "Allow public read access to every object"
+        },
+        {
+          "id": "D",
+          "text": "Move the static files to an EC2 instance with a public IP address"
+        }
+      ],
+      "correct_answer": "B",
+      "wrong_hint": "The requirement says the origin itself must not be publicly accessible. CloudFront still needs permission to retrieve the objects.",
+      "clue": "Keep the origin private and establish controlled access between the distribution and the origin."
+    }
+  ]
+}
