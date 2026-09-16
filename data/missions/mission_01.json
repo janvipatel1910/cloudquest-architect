@@ -154,5 +154,66 @@
       "wrong_hint": "The requirement says the origin itself must not be publicly accessible. CloudFront still needs permission to retrieve the objects.",
       "clue": "Keep the origin private and establish controlled access between the distribution and the origin."
     }
-  ]
+  ],
+ "architecture": {
+    "slots": [
+      {
+        "id": "dns",
+        "label": "DNS Layer",
+        "correct_component": "route53"
+      },
+      {
+        "id": "delivery",
+        "label": "Global Delivery Layer",
+        "correct_component": "cloudfront"
+      },
+      {
+        "id": "certificate",
+        "label": "HTTPS Certificate",
+        "correct_component": "acm"
+      },
+      {
+        "id": "origin",
+        "label": "Website Origin",
+        "correct_component": "s3_private"
+      }
+    ],
+
+    "components": [
+      {
+        "id": "route53",
+        "name": "Amazon Route 53"
+      },
+      {
+        "id": "cloudfront",
+        "name": "Amazon CloudFront"
+      },
+      {
+        "id": "acm",
+        "name": "AWS Certificate Manager"
+      },
+      {
+        "id": "s3_private",
+        "name": "Private Amazon S3 Bucket"
+      },
+      {
+        "id": "ec2",
+        "name": "Amazon EC2"
+      },
+      {
+        "id": "rds",
+        "name": "Amazon RDS"
+      }
+    ],
+
+    "review_requirements": [
+      "security",
+      "global_performance",
+      "availability",
+      "cost",
+      "operational_overhead",
+      "service_placement"
+    ]
+  }
+
 }
