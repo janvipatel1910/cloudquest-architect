@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CloudQuest Architect</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-icon">☁️</span>
+            <span>CloudQuest Architect</span>
+        </div>
+
+        <div class="player-info">
+            <span>Cloud Rookie</span>
+            <span id="xp-display">0 XP</span>
+        </div>
+    </header>
+
+    <main class="game-container">
+
+        <section class="mission-header">
+            <div>
+                <p class="eyebrow">MISSION 01</p>
+                <h1>Launch Day</h1>
+                <p class="mission-company">
+                    Client: NovaLaunch
+                </p>
+            </div>
+
+            <div class="clue-counter">
+                <span id="clues-unlocked">0</span>
+                <span>/ 5 clues</span>
+            </div>
+        </section>
+
+        <section class="client-brief game-card">
+            <p class="section-label">CLIENT BRIEF</p>
+
+            <h2>NovaLaunch is preparing to go live.</h2>
+
+            <p>
+                A small startup needs to launch a public website
+                containing HTML, CSS, JavaScript, and images.
+            </p>
+
+            <p>
+                Your job is to design an AWS architecture that
+                satisfies the client's technical and business
+                requirements.
+            </p>
+
+            <div class="requirements">
+                <span>✓ Low cost</span>
+                <span>✓ High availability</span>
+                <span>✓ Fast global delivery</span>
+                <span>✓ HTTPS</span>
+                <span>✓ Minimal operational overhead</span>
+                <span>✓ Private origin</span>
+            </div>
+        </section>
+
+        <section class="mission-path game-card">
+            <p class="section-label">MISSION PATH</p>
+
+            <div class="path">
+                <div class="path-stage active">
+                    <span class="stage-number">1</span>
+                    <div>
+                        <strong>Architect Questions</strong>
+                        <small>ACTIVE</small>
+                    </div>
+                </div>
+
+                <span class="path-arrow">→</span>
+
+                <div
+                    class="path-stage locked"
+                    id="architecture-stage"
+                >
+                    <span class="stage-number">2</span>
+                    <div>
+                        <strong>Architecture Board</strong>
+                        <small>LOCKED</small>
+                    </div>
+                </div>
+
+                <span class="path-arrow">→</span>
+
+                <div
+                    class="path-stage locked"
+                    id="deployment-stage"
+                >
+                    <span class="stage-number">3</span>
+                    <div>
+                        <strong>AWS Deployment</strong>
+                        <small>LOCKED</small>
+                    </div>
+                </div>
+
+                <span class="path-arrow">→</span>
+
+                <div class="path-stage locked">
+                    <span class="stage-number">4</span>
+                    <div>
+                        <strong>Mission Complete</strong>
+                        <small>LOCKED</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="decision-area game-card">
+
+            <div class="decision-heading">
+                <div>
+                    <p class="section-label">
+                        ARCHITECT DECISION
+                    </p>
+
+                    <h2 id="question-progress">
+                        Decision 1 of 5
+                    </h2>
+                </div>
+
+                <span class="decision-status">
+                    CLUE LOCKED 🔒
+                </span>
+            </div>
+
+            <p
+                class="question-text"
+                id="question-text"
+            >
+                Loading mission decision...
+            </p>
+
+            <div
+                class="answer-options"
+                id="answer-options"
+            >
+            </div>
+
+            <div
+                class="feedback hidden"
+                id="feedback"
+            >
+            </div>
+
+            <button
+                type="button"
+                id="submit-answer"
+                disabled
+            >
+                Submit Decision
+            </button>
+
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+
+</body>
+</html>

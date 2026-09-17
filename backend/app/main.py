@@ -1,0 +1,90 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from backend.app.game import GameEngine
+
+
+app = FastAPI(
+    title="CloudQuest Architect API",
+    version="0.1.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:8001",
+        "http://127.0.0.1:8001"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+game = GameEngine()
+
+
+@app.get("/")
+def root():
+    return {
+        "app": "CloudQuest Architect",
+        "status": "online"
+    }
+
+
+@app.get("/api/mission")
+def get_mission():
+    mission = game.mission
+
+    return {
+        "mission_id": mission["mission_id"],
+        "title": mission["title"],
+        "level": mission["level"],
+        "xp_reward": mission["xp_reward"],
+        "company": mission["company"],
+        "scenario": mission["scenario"],
+        "requirements": mission["requirements"],
+        "total_questions": len(mission["questions"])
+    }
+
+
+@app.get("/api/question")
+def get_question():
+    question = game.get_current_question()
+
+    if question is None:
+        return {
+            "status": "complete",
+            "message": "All architecture decisions are complete."
+        }
+
+    return {
+        "status": "active",
+        "question": {
+            "id": question["id"],
+            "question": question["question"],
+            "options": question["options"]
+        },
+        "progress": game.get_progress()
+    }
+
+
+@app.get("/api/progress")
+def get_progress():
+    return game.get_progress()
+
+
+from pydantic import BaseModel
+
+
+class AnswerSubmission(BaseModel):
+    answer: str
+
+
+@app.post("/api/answer")
+def submit_answer(submission: AnswerSubmission):
+    result = game.submit_answer(submission.answer)
+
+    return {
+        "result": result,
+        "progress": game.get_progress()
+    }
