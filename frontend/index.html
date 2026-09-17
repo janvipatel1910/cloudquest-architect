@@ -166,6 +166,79 @@
 
         </section>
 
+        <section
+            class="architecture-board game-card hidden"
+            id="architecture-board"
+        >
+            <div class="board-heading">
+                <div>
+                    <p class="section-label">ARCHITECTURE BOARD</p>
+                    <h2>Build the NovaLaunch Architecture</h2>
+                </div>
+
+                <span class="board-status">
+                    DESIGN IN PROGRESS
+                </span>
+            </div>
+
+            <p class="board-intro">
+                Use the clues you unlocked to place the correct AWS
+                service in each architecture layer. Some services are
+                distractors.
+            </p>
+
+            <div class="architecture-layout">
+
+                <div class="clue-panel">
+                    <h3>🧩 Unlocked Clues</h3>
+
+                    <div id="architecture-clues">
+                    </div>
+                </div>
+
+                <div class="component-panel">
+                    <h3>☁️ AWS Component Bank</h3>
+
+                    <p class="panel-help">
+                        Select a service, then choose the architecture
+                        layer where you want to place it.
+                    </p>
+
+                    <div
+                        class="component-bank"
+                        id="component-bank"
+                    >
+                    </div>
+                </div>
+
+                <div class="architecture-slots-panel">
+                    <h3>🏗️ Architecture Layers</h3>
+
+                    <div
+                        class="architecture-slots"
+                        id="architecture-slots"
+                    >
+                    </div>
+                </div>
+
+            </div>
+
+            <div
+                class="architecture-feedback hidden"
+                id="architecture-feedback"
+            >
+            </div>
+
+            <button
+                type="button"
+                id="submit-architecture"
+                disabled
+            >
+                Submit for Architect Review
+            </button>
+
+        </section>
+
     </main>
 
     <script src="app.js"></script>

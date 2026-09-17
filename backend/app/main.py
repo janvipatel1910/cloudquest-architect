@@ -88,3 +88,44 @@ def submit_answer(submission: AnswerSubmission):
         "result": result,
         "progress": game.get_progress()
     }
+@app.get("/api/architecture")
+def get_architecture():
+    if not game.architecture_unlocked:
+        return {
+            "status": "locked",
+            "message": "Complete all architecture decisions first."
+        }
+
+    architecture = game.mission["architecture"]
+
+    safe_slots = [
+        {
+            "id": slot["id"],
+            "label": slot["label"]
+        }
+        for slot in architecture["slots"]
+    ]
+
+    return {
+        "status": "unlocked",
+        "slots": safe_slots,
+        "components": architecture["components"],
+        "clues": game.unlocked_clues,
+        "progress": game.get_progress()
+    }
+
+
+class ArchitectureSubmission(BaseModel):
+    placements: dict[str, str]
+
+
+@app.post("/api/architecture/review")
+def review_architecture(submission: ArchitectureSubmission):
+    result = game.review_architecture(
+        submission.placements
+    )
+
+    return {
+        "result": result,
+        "progress": game.get_progress()
+    }

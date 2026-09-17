@@ -350,3 +350,165 @@ input {
         flex-direction: column;
     }
 }
+
+
+/* =========================================
+   ARCHITECTURE BOARD
+   ========================================= */
+
+.architecture-board {
+    margin-top: 24px;
+}
+
+.board-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 12px;
+}
+
+.board-heading h2 {
+    margin: 4px 0 0;
+}
+
+.board-status {
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.board-intro {
+    margin-bottom: 24px;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+.architecture-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.2fr;
+    gap: 20px;
+}
+
+.clue-panel,
+.component-panel,
+.architecture-slots-panel {
+    padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.clue-panel h3,
+.component-panel h3,
+.architecture-slots-panel h3 {
+    margin-top: 0;
+}
+
+.architecture-clue {
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.architecture-clue strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.architecture-clue p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+.panel-help {
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.7;
+}
+
+.component-bank {
+    display: grid;
+    gap: 10px;
+}
+
+.aws-component {
+    width: 100%;
+    padding: 12px;
+    text-align: left;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    color: inherit;
+    cursor: pointer;
+}
+
+.aws-component:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-1px);
+}
+
+.aws-component.selected {
+    border-color: #60a5fa;
+    background: rgba(96, 165, 250, 0.12);
+}
+
+.architecture-slots {
+    display: grid;
+    gap: 12px;
+}
+
+.architecture-slot {
+    min-height: 78px;
+    padding: 14px;
+    border: 1px dashed rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.architecture-slot:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.slot-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    opacity: 0.65;
+    text-transform: uppercase;
+}
+
+.slot-value {
+    font-size: 15px;
+}
+
+.architecture-feedback {
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+#submit-architecture {
+    margin-top: 20px;
+}
+
+@media (max-width: 900px) {
+    .architecture-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .board-heading {
+        flex-direction: column;
+    }
+}
