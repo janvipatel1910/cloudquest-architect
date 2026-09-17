@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# Environment variables
+.env
+
+# Temporary backup files
+*_backup.py
+*_broken_backup.py
