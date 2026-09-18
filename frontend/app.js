@@ -943,6 +943,9 @@ validationChecks.forEach((checkbox) => {
 
 
 // Complete Mission 1
+const xpDisplay =
+    document.getElementById("xp-display");
+
 completeValidationButton.addEventListener("click", () => {
     const allChecksComplete =
         Array.from(validationChecks).every(
@@ -962,9 +965,9 @@ completeValidationButton.addEventListener("click", () => {
         "a secure global static website architecture.</p>" +
         "<p><strong>+500 XP earned</strong></p>";
 
-    completeValidationButton.disabled = true;
-    completeValidationButton.textContent =
-        "Mission Complete";
+    
+completeValidationButton.classList.add("hidden");
+xpDisplay.textContent = "500 XP";
 
     validationChecks.forEach((checkbox) => {
         checkbox.disabled = true;
@@ -979,7 +982,7 @@ const missionCompleteStage =
     document.getElementById("mission-complete-stage");
 
 missionCompleteStage.classList.remove("locked");
-missionCompleteStage.classList.add("active");
+missionCompleteStage.classList.add("completed");
 
 const missionCompleteStatus =
     missionCompleteStage.querySelector("small");
