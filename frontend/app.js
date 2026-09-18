@@ -379,6 +379,26 @@ const submitArchitectureButton =
     document.getElementById("submit-architecture");
 
 submitArchitectureButton.addEventListener("click", async () => {
+    if (
+        submitArchitectureButton.dataset.action ===
+        "deployment"
+    ) {
+        const architectureBoard =
+            document.getElementById("architecture-board");
+
+        const deploymentMission =
+            document.getElementById("deployment-mission");
+
+        architectureBoard.classList.add("hidden");
+        deploymentMission.classList.remove("hidden");
+
+        deploymentMission.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+        return;
+    }
     const architectureFeedback =
         document.getElementById("architecture-feedback");
 
@@ -476,4 +496,493 @@ submitArchitectureButton.addEventListener("click", async () => {
 
         console.error(error);
     }
+});
+// =========================================================
+// DEPLOYMENT MISSION - STAGE 1: PRIVATE ORIGIN
+// =========================================================
+
+const completeOriginButton =
+    document.getElementById("complete-deployment-stage");
+
+const originDeploymentCheck =
+    document.getElementById("origin-deployment-check");
+
+const originCheckOptions =
+    document.querySelectorAll(".deployment-check-option");
+
+const verifyOriginButton =
+    document.getElementById("verify-origin-check");
+
+const deploymentFeedback =
+    document.getElementById("deployment-feedback");
+
+let selectedOriginAnswer = null;
+
+
+// Show the deployment check
+completeOriginButton.addEventListener("click", () => {
+    originDeploymentCheck.classList.remove("hidden");
+
+    completeOriginButton.classList.add("hidden");
+
+    originDeploymentCheck.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+});
+
+
+// Select an answer
+originCheckOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+        selectedOriginAnswer = option.dataset.answer;
+
+        originCheckOptions.forEach((button) => {
+            button.classList.remove("selected");
+        });
+
+        option.classList.add("selected");
+
+        verifyOriginButton.disabled = false;
+
+        deploymentFeedback.classList.add("hidden");
+        deploymentFeedback.innerHTML = "";
+    });
+});
+
+
+// Verify the deployment decision
+verifyOriginButton.addEventListener("click", () => {
+    if (!selectedOriginAnswer) {
+        return;
+    }
+
+    deploymentFeedback.classList.remove("hidden");
+
+    if (selectedOriginAnswer !== "B") {
+        deploymentFeedback.innerHTML =
+            "<strong>⚠️ DEPLOYMENT CHECK FAILED</strong>" +
+            "<p>The origin must not be directly accessible " +
+            "from the public internet. Reconsider which S3 " +
+            "security setting prevents public access.</p>";
+
+        return;
+    }
+
+    deploymentFeedback.innerHTML =
+        "<strong>✓ ORIGIN VERIFIED</strong>" +
+        "<p>The S3 origin remains private. " +
+        "Global Delivery is now unlocked.</p>";
+
+    originCheckOptions.forEach((button) => {
+        button.disabled = true;
+    });
+
+    verifyOriginButton.disabled = true;
+    verifyOriginButton.textContent = "Origin Verified";
+
+    const deploymentSteps =
+        document.querySelectorAll(".deployment-step");
+
+    deploymentSteps[0].classList.remove("active");
+    deploymentSteps[0].classList.add("completed");
+
+    deploymentSteps[1].classList.add("active");
+
+    const globalDeliveryStage =
+        document.getElementById("global-delivery-stage");
+
+    globalDeliveryStage.classList.remove("hidden");
+
+    globalDeliveryStage.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+});
+// =========================================================
+// DEPLOYMENT MISSION - STAGE 2: GLOBAL DELIVERY
+// =========================================================
+
+const completeGlobalDeliveryButton =
+    document.getElementById("complete-global-delivery");
+
+const globalDeliveryCheck =
+    document.getElementById("global-delivery-check");
+
+const globalDeliveryOptions =
+    document.querySelectorAll(".global-delivery-option");
+
+const verifyGlobalDeliveryButton =
+    document.getElementById("verify-global-delivery");
+
+const globalDeliveryFeedback =
+    document.getElementById("global-delivery-feedback");
+
+let selectedGlobalDeliveryAnswer = null;
+
+
+// Show Stage 2 deployment check
+completeGlobalDeliveryButton.addEventListener("click", () => {
+    globalDeliveryCheck.classList.remove("hidden");
+
+    completeGlobalDeliveryButton.classList.add("hidden");
+
+    globalDeliveryCheck.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+});
+
+
+// Select Stage 2 answer
+globalDeliveryOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+        selectedGlobalDeliveryAnswer =
+            option.dataset.answer;
+
+        globalDeliveryOptions.forEach((button) => {
+            button.classList.remove("selected");
+        });
+
+        option.classList.add("selected");
+
+        verifyGlobalDeliveryButton.disabled = false;
+
+        globalDeliveryFeedback.classList.add("hidden");
+        globalDeliveryFeedback.innerHTML = "";
+    });
+});
+
+
+// Verify Stage 2 decision
+verifyGlobalDeliveryButton.addEventListener("click", () => {
+    if (!selectedGlobalDeliveryAnswer) {
+        return;
+    }
+
+    globalDeliveryFeedback.classList.remove("hidden");
+
+    if (selectedGlobalDeliveryAnswer !== "B") {
+        globalDeliveryFeedback.innerHTML =
+            "<strong>⚠️ DEPLOYMENT CHECK FAILED</strong>" +
+            "<p>The client needs a globally distributed " +
+            "entry point with low operational overhead. " +
+            "Reconsider which service should receive the " +
+            "user request before it reaches the origin.</p>";
+
+        return;
+    }
+
+    globalDeliveryFeedback.innerHTML =
+        "<strong>✓ GLOBAL DELIVERY VERIFIED</strong>" +
+        "<p>CloudFront is the public delivery layer and " +
+        "the private S3 bucket remains the origin. " +
+        "HTTPS is now unlocked.</p>";
+
+    globalDeliveryOptions.forEach((button) => {
+        button.disabled = true;
+    });
+
+    verifyGlobalDeliveryButton.disabled = true;
+    verifyGlobalDeliveryButton.textContent =
+        "Global Delivery Verified";
+
+    const deploymentSteps =
+        document.querySelectorAll(".deployment-step");
+
+    deploymentSteps[1].classList.remove("active");
+    deploymentSteps[1].classList.add("completed");
+
+    deploymentSteps[2].classList.add("active");
+        const httpsStage =
+        document.getElementById("https-stage");
+
+    httpsStage.classList.remove("hidden");
+
+    httpsStage.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+  
+});
+// =========================================================
+// DEPLOYMENT MISSION - STAGE 3: HTTPS
+// =========================================================
+
+const completeHttpsButton =
+    document.getElementById("complete-https-stage");
+
+const httpsDeploymentCheck =
+    document.getElementById("https-deployment-check");
+
+const httpsCheckOptions =
+    document.querySelectorAll(".https-check-option");
+
+const verifyHttpsButton =
+    document.getElementById("verify-https-check");
+
+const httpsFeedback =
+    document.getElementById("https-feedback");
+
+let selectedHttpsAnswer = null;
+
+
+// Show Stage 3 verification challenge
+completeHttpsButton.addEventListener("click", () => {
+    httpsDeploymentCheck.classList.remove("hidden");
+    completeHttpsButton.classList.add("hidden");
+
+    httpsDeploymentCheck.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+});
+
+
+// Select an answer
+httpsCheckOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+        selectedHttpsAnswer = option.dataset.answer;
+
+        httpsCheckOptions.forEach((button) => {
+            button.classList.remove("selected");
+        });
+
+        option.classList.add("selected");
+
+        verifyHttpsButton.disabled = false;
+
+        httpsFeedback.classList.add("hidden");
+        httpsFeedback.innerHTML = "";
+    });
+});
+
+
+// Verify Stage 3 decision
+verifyHttpsButton.addEventListener("click", () => {
+    if (!selectedHttpsAnswer) {
+        return;
+    }
+
+    httpsFeedback.classList.remove("hidden");
+
+    if (selectedHttpsAnswer !== "C") {
+        httpsFeedback.innerHTML =
+            "<strong>⚠️ DEPLOYMENT CHECK FAILED</strong>" +
+            "<p>CloudFront has a specific Region requirement " +
+            "for viewer TLS certificates. Reconsider where " +
+            "the ACM certificate must be available.</p>";
+
+        return;
+    }
+
+    httpsFeedback.innerHTML =
+        "<strong>✓ HTTPS VERIFIED</strong>" +
+        "<p>The CloudFront certificate is correctly placed. " +
+        "DNS configuration is now unlocked.</p>";
+
+    httpsCheckOptions.forEach((button) => {
+        button.disabled = true;
+    });
+
+    verifyHttpsButton.disabled = true;
+    verifyHttpsButton.textContent =
+        "HTTPS Verified";
+
+    const deploymentSteps =
+        document.querySelectorAll(".deployment-step");
+
+    deploymentSteps[2].classList.remove("active");
+    deploymentSteps[2].classList.add("completed");
+
+    deploymentSteps[3].classList.add("active");
+       const dnsStage =
+        document.getElementById("dns-stage");
+
+    dnsStage.classList.remove("hidden");
+
+    dnsStage.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+   
+});
+// =========================================================
+// DEPLOYMENT MISSION - STAGE 4: DNS
+// =========================================================
+
+const completeDnsButton =
+    document.getElementById("complete-dns-stage");
+
+const dnsDeploymentCheck =
+    document.getElementById("dns-deployment-check");
+
+const dnsCheckOptions =
+    document.querySelectorAll(".dns-check-option");
+
+const verifyDnsButton =
+    document.getElementById("verify-dns-check");
+
+const dnsFeedback =
+    document.getElementById("dns-feedback");
+
+let selectedDnsAnswer = null;
+
+
+// Show Stage 4 verification challenge
+completeDnsButton.addEventListener("click", () => {
+    dnsDeploymentCheck.classList.remove("hidden");
+    completeDnsButton.classList.add("hidden");
+
+    dnsDeploymentCheck.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+});
+
+
+// Select an answer
+dnsCheckOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+        selectedDnsAnswer = option.dataset.answer;
+
+        dnsCheckOptions.forEach((button) => {
+            button.classList.remove("selected");
+        });
+
+        option.classList.add("selected");
+
+        verifyDnsButton.disabled = false;
+
+        dnsFeedback.classList.add("hidden");
+        dnsFeedback.innerHTML = "";
+    });
+});
+
+
+// Verify Stage 4 decision
+verifyDnsButton.addEventListener("click", () => {
+    if (!selectedDnsAnswer) {
+        return;
+    }
+
+    dnsFeedback.classList.remove("hidden");
+
+    if (selectedDnsAnswer !== "A") {
+        dnsFeedback.innerHTML =
+            "<strong>⚠️ DEPLOYMENT CHECK FAILED</strong>" +
+            "<p>The domain needs to route website traffic " +
+            "to the CloudFront distribution. Reconsider " +
+            "which Route 53 record design supports this.</p>";
+
+        return;
+    }
+
+    dnsFeedback.innerHTML =
+        "<strong>✓ DNS VERIFIED</strong>" +
+        "<p>The domain can route traffic to CloudFront. " +
+        "Final validation is now unlocked.</p>";
+
+    dnsCheckOptions.forEach((button) => {
+        button.disabled = true;
+    });
+
+    verifyDnsButton.disabled = true;
+    verifyDnsButton.textContent =
+        "DNS Verified";
+
+    const deploymentSteps =
+        document.querySelectorAll(".deployment-step");
+
+    deploymentSteps[3].classList.remove("active");
+    deploymentSteps[3].classList.add("completed");
+
+    deploymentSteps[4].classList.add("active");
+
+    const validationStage =
+        document.getElementById("validation-stage");
+
+    validationStage.classList.remove("hidden");
+
+    validationStage.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+});
+// =========================================================
+// DEPLOYMENT MISSION - STAGE 5: FINAL VALIDATION
+// =========================================================
+
+const validationChecks =
+    document.querySelectorAll(".validation-check");
+
+const completeValidationButton =
+    document.getElementById("complete-validation");
+
+const validationFeedback =
+    document.getElementById("validation-feedback");
+
+
+// Enable mission completion only when every check passes
+validationChecks.forEach((checkbox) => {
+    checkbox.addEventListener("change", () => {
+        const allChecksComplete =
+            Array.from(validationChecks).every(
+                (check) => check.checked
+            );
+
+        completeValidationButton.disabled =
+            !allChecksComplete;
+
+        validationFeedback.classList.add("hidden");
+        validationFeedback.innerHTML = "";
+    });
+});
+
+
+// Complete Mission 1
+completeValidationButton.addEventListener("click", () => {
+    const allChecksComplete =
+        Array.from(validationChecks).every(
+            (check) => check.checked
+        );
+
+    if (!allChecksComplete) {
+        return;
+    }
+
+    validationFeedback.classList.remove("hidden");
+
+    validationFeedback.innerHTML =
+        "<strong>🏆 MISSION COMPLETE</strong>" +
+        "<p>NovaLaunch is ready to go live. " +
+        "You designed, reviewed, deployed, and validated " +
+        "a secure global static website architecture.</p>" +
+        "<p><strong>+500 XP earned</strong></p>";
+
+    completeValidationButton.disabled = true;
+    completeValidationButton.textContent =
+        "Mission Complete";
+
+    validationChecks.forEach((checkbox) => {
+        checkbox.disabled = true;
+    });
+const deploymentSteps =
+    document.querySelectorAll(".deployment-step");
+
+deploymentSteps[4].classList.remove("active");
+deploymentSteps[4].classList.add("completed");
+
+const missionCompleteStage =
+    document.getElementById("mission-complete-stage");
+
+missionCompleteStage.classList.remove("locked");
+missionCompleteStage.classList.add("active");
+
+const missionCompleteStatus =
+    missionCompleteStage.querySelector("small");
+
+missionCompleteStatus.textContent = "COMPLETE";
 });

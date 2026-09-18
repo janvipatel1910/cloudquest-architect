@@ -184,7 +184,6 @@ input {
     border: 1px solid var(--border);
     border-radius: 14px;
 }
-
 .path-stage.active {
     border-color: var(--accent);
     background: var(--accent-soft);
@@ -192,6 +191,21 @@ input {
 
 .path-stage.locked {
     opacity: 0.48;
+}
+
+.path-stage.completed {
+    opacity: 1;
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.path-stage.completed .stage-number {
+    color: var(--bg);
+    background: var(--accent);
+}
+
+.path-stage.completed small {
+    color: var(--accent);
 }
 
 .stage-number {
@@ -510,5 +524,216 @@ input {
 
     .board-heading {
         flex-direction: column;
+    }
+}
+/* =========================================================
+   AWS DEPLOYMENT MISSION
+   ========================================================= */
+
+.deployment-mission {
+    margin-top: 28px;
+}
+
+.deployment-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 12px;
+}
+
+.deployment-heading h2 {
+    margin: 4px 0 0;
+}
+
+.deployment-status {
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+}
+
+.deployment-intro {
+    margin: 0 0 28px;
+    line-height: 1.7;
+    opacity: 0.82;
+}
+
+/* Deployment progress */
+
+.deployment-progress {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.deployment-step {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    opacity: 0.5;
+}
+
+.deployment-step span {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.deployment-step strong {
+    font-size: 0.82rem;
+}
+
+.deployment-step.active {
+    opacity: 1;
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* Current deployment task */
+
+.deployment-task {
+    padding-top: 6px;
+}
+
+.deployment-task h3 {
+    margin: 5px 0 12px;
+    font-size: 1.4rem;
+}
+
+.deployment-requirement {
+    max-width: 760px;
+    margin-bottom: 22px;
+    line-height: 1.65;
+}
+
+.deployment-task-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.deployment-task-card {
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.deployment-task-card h4 {
+    margin: 0 0 14px;
+}
+
+.deployment-task-card p,
+.deployment-task-card li {
+    line-height: 1.65;
+    opacity: 0.85;
+}
+
+.deployment-task-card ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.deployment-task-card li + li {
+    margin-top: 7px;
+}
+
+.deployment-feedback {
+    margin: 18px 0;
+    padding: 16px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    line-height: 1.6;
+}
+
+#complete-deployment-stage {
+    margin-top: 4px;
+}
+
+/* Responsive deployment layout */
+
+@media (max-width: 900px) {
+    .deployment-progress {
+        grid-template-columns: 1fr;
+    }
+
+    .deployment-task-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .deployment-heading {
+        flex-direction: column;
+    }
+}
+/* =========================================================
+   DEPLOYMENT CHECK
+   ========================================================= */
+
+.deployment-check {
+    margin-top: 24px;
+    padding: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.035);
+}
+
+.deployment-check h4 {
+    margin: 6px 0 10px;
+    font-size: 1.15rem;
+}
+
+.deployment-check > p:not(.section-label) {
+    margin-bottom: 18px;
+    line-height: 1.65;
+    opacity: 0.85;
+}
+
+.deployment-check-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.deployment-check-option {
+    width: 100%;
+    padding: 14px 16px;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+}
+
+.deployment-check-option:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.deployment-check-option.selected {
+    border-color: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.09);
+}
+
+#verify-origin-check {
+    margin-top: 2px;
+}
+
+@media (max-width: 700px) {
+    .deployment-check-options {
+        grid-template-columns: 1fr;
     }
 }

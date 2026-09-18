@@ -109,7 +109,7 @@
 
                 <span class="path-arrow">→</span>
 
-                <div class="path-stage locked">
+                <div class="path-stage locked"  id="mission-complete-stage" >
                     <span class="stage-number">4</span>
                     <div>
                         <strong>Mission Complete</strong>
@@ -238,6 +238,640 @@
             </button>
 
         </section>
+        <section
+            class="deployment-mission game-card hidden"
+            id="deployment-mission"
+        >
+            <div class="deployment-heading">
+                <div>
+                    <p class="section-label">AWS DEPLOYMENT MISSION</p>
+                    <h2>Launch NovaLaunch</h2>
+                </div>
+
+                <span class="deployment-status">
+                    READY TO DEPLOY
+                </span>
+            </div>
+
+            <p class="deployment-intro">
+                Your architecture has been approved. Now turn the
+                design into a working AWS solution.
+            </p>
+
+            <div class="deployment-progress">
+                <div class="deployment-step active">
+                    <span>1</span>
+                    <strong>Origin</strong>
+                </div>
+
+                <div class="deployment-step">
+                    <span>2</span>
+                    <strong>Global Delivery</strong>
+                </div>
+
+                <div class="deployment-step">
+                    <span>3</span>
+                    <strong>HTTPS</strong>
+                </div>
+
+                <div class="deployment-step">
+                    <span>4</span>
+                    <strong>DNS</strong>
+                </div>
+
+                <div class="deployment-step">
+                    <span>5</span>
+                    <strong>Validation</strong>
+                </div>
+            </div>
+
+            <div class="deployment-task">
+                <p class="section-label">DEPLOYMENT STAGE 1</p>
+
+                <h3>Build the Private Origin</h3>
+
+                <p class="deployment-requirement">
+                    NovaLaunch needs a secure location for its static
+                    website. The origin must not be directly public.
+                </p>
+
+                <div class="deployment-task-grid">
+                    <div class="deployment-task-card">
+                        <h4>🎯 Your Task</h4>
+
+                        <ul>
+                            <li>Create an Amazon S3 bucket.</li>
+                            <li>Upload the NovaLaunch website files.</li>
+                            <li>Keep Block Public Access enabled.</li>
+                            <li>Do not enable public website hosting.</li>
+                        </ul>
+                    </div>
+
+                    <div class="deployment-task-card">
+                        <h4>💡 Why This Matters</h4>
+
+                        <p>
+                            CloudFront will become the public entry
+                            point. The S3 origin should remain protected
+                            from direct public access.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="deployment-feedback hidden"
+                    id="deployment-feedback"
+                ></div>
+
+                <button
+                    type="button"
+                    id="complete-deployment-stage"
+                >
+                    I've Created the Origin
+                             </button>
+                              <div
+                    class="deployment-check hidden"
+                    id="origin-deployment-check"
+                >
+                    <p class="section-label">
+                        DEPLOYMENT CHECK
+                    </p>
+
+                    <h4>
+                        Verify the Private Origin
+                    </h4>
+
+                    <p>
+                        Your S3 bucket contains the website files.
+                        Which setting should remain enabled to prevent
+                        direct public access?
+                    </p>
+
+                    <div
+                        class="deployment-check-options"
+                        id="origin-check-options"
+                    >
+                        <button
+                            type="button"
+                            class="deployment-check-option"
+                            data-answer="A"
+                        >
+                            A. Static website hosting
+                        </button>
+
+                        <button
+                            type="button"
+                            class="deployment-check-option"
+                            data-answer="B"
+                        >
+                            B. Block Public Access
+                        </button>
+
+                        <button
+                            type="button"
+                            class="deployment-check-option"
+                            data-answer="C"
+                        >
+                            C. Public-read ACL
+                        </button>
+
+                        <button
+                            type="button"
+                            class="deployment-check-option"
+                            data-answer="D"
+                        >
+                            D. Public bucket policy
+                        </button>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="verify-origin-check"
+                        disabled
+                    >
+                        Verify Deployment
+                    </button>
+
+                </div>
+
+            </div>
+       
+                 <div
+                class="deployment-task hidden"
+                id="global-delivery-stage"
+            >
+                <p class="section-label">
+                    DEPLOYMENT STAGE 2
+                </p>
+
+                <h3>Configure Global Delivery</h3>
+
+                <p class="deployment-requirement">
+                    NovaLaunch users are distributed around the world.
+                    Deliver the private S3 content with low latency
+                    without managing web servers.
+                </p>
+
+                <div class="deployment-task-grid">
+                    <div class="deployment-task-card">
+                        <h4>🎯 Your Task</h4>
+
+                        <ul>
+                            <li>
+                                Create an Amazon CloudFront distribution.
+                            </li>
+                            <li>
+                                Use your private S3 bucket as the origin.
+                            </li>
+                            <li>
+                                Configure controlled access between
+                                CloudFront and the S3 origin.
+                            </li>
+                            <li>
+                                Wait until the distribution is deployed.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="deployment-task-card">
+                        <h4>💡 Why This Matters</h4>
+
+                        <p>
+                            CloudFront provides a globally distributed
+                            entry point while the S3 bucket remains
+                            protected as the origin.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="deployment-feedback hidden"
+                    id="global-delivery-feedback"
+                ></div>
+
+                <button
+                    type="button"
+                    id="complete-global-delivery"
+                >
+                    I've Configured Global Delivery
+                </button>
+
+                <div
+                    class="deployment-check hidden"
+                    id="global-delivery-check"
+                >
+                    <p class="section-label">
+                        DEPLOYMENT CHECK
+                    </p>
+
+                    <h4>Verify the Delivery Layer</h4>
+
+                    <p>
+                        Which AWS service should users reach first
+                        when requesting the NovaLaunch website?
+                    </p>
+
+                    <div
+                        class="deployment-check-options"
+                        id="global-delivery-options"
+                    >
+                        <button
+                            type="button"
+                            class="global-delivery-option"
+                            data-answer="A"
+                        >
+                            A. Amazon S3
+                        </button>
+
+                        <button
+                            type="button"
+                            class="global-delivery-option"
+                            data-answer="B"
+                        >
+                            B. Amazon CloudFront
+                        </button>
+
+                        <button
+                            type="button"
+                            class="global-delivery-option"
+                            data-answer="C"
+                        >
+                            C. Amazon EC2
+                        </button>
+
+                        <button
+                            type="button"
+                            class="global-delivery-option"
+                            data-answer="D"
+                        >
+                            D. Amazon RDS
+                        </button>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="verify-global-delivery"
+                        disabled
+                    >
+                        Verify Deployment
+                    </button>
+                </div>
+            </div>
+          
+                   <div
+                class="deployment-task hidden"
+                id="https-stage"
+            >
+                <p class="section-label">
+                    DEPLOYMENT STAGE 3
+                </p>
+
+                <h3>Secure the Website with HTTPS</h3>
+
+                <p class="deployment-requirement">
+                    NovaLaunch customers must access the website over
+                    HTTPS using a trusted TLS certificate.
+                </p>
+
+                <div class="deployment-task-grid">
+                    <div class="deployment-task-card">
+                        <h4>🎯 Your Task</h4>
+
+                        <ul>
+                            <li>
+                                Open AWS Certificate Manager (ACM).
+                            </li>
+                            <li>
+                                Request a public certificate for the
+                                NovaLaunch domain.
+                            </li>
+                            <li>
+                                Request the certificate in
+                                US East (N. Virginia).
+                            </li>
+                            <li>
+                                Complete domain validation.
+                            </li>
+                            <li>
+                                Associate the certificate with the
+                                CloudFront distribution.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="deployment-task-card">
+                        <h4>💡 Architecture Insight</h4>
+
+                        <p>
+                            CloudFront is a global service. Certificates
+                            used for HTTPS between viewers and CloudFront
+                            must be available through ACM in the
+                            US East (N. Virginia) Region.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="deployment-feedback hidden"
+                    id="https-feedback"
+                ></div>
+
+                <button
+                    type="button"
+                    id="complete-https-stage"
+                >
+                    I've Configured HTTPS
+                </button>
+
+                <div
+                    class="deployment-check hidden"
+                    id="https-deployment-check"
+                >
+                    <p class="section-label">
+                        DEPLOYMENT CHECK
+                    </p>
+
+                    <h4>Verify the HTTPS Configuration</h4>
+
+                    <p>
+                        In which AWS Region must the ACM certificate
+                        for a CloudFront viewer HTTPS configuration
+                        be requested or imported?
+                    </p>
+
+                    <div
+                        class="deployment-check-options"
+                        id="https-check-options"
+                    >
+                        <button
+                            type="button"
+                            class="https-check-option"
+                            data-answer="A"
+                        >
+                            A. Europe (London)
+                        </button>
+
+                        <button
+                            type="button"
+                            class="https-check-option"
+                            data-answer="B"
+                        >
+                            B. Any Region
+                        </button>
+
+                        <button
+                            type="button"
+                            class="https-check-option"
+                            data-answer="C"
+                        >
+                            C. US East (N. Virginia)
+                        </button>
+
+                        <button
+                            type="button"
+                            class="https-check-option"
+                            data-answer="D"
+                        >
+                            D. The S3 bucket's Region
+                        </button>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="verify-https-check"
+                        disabled
+                    >
+                        Verify Deployment
+                    </button>
+                </div>
+            </div>
+       
+       
+                  <div
+                class="deployment-task hidden"
+                id="dns-stage"
+            >
+                <p class="section-label">
+                    DEPLOYMENT STAGE 4
+                </p>
+
+                <h3>Connect the Domain with DNS</h3>
+
+                <p class="deployment-requirement">
+                    NovaLaunch needs a simple way for users to reach
+                    the website using a friendly domain name.
+                </p>
+
+                <div class="deployment-task-grid">
+                    <div class="deployment-task-card">
+                        <h4>🎯 Full Deployment</h4>
+
+                        <ul>
+                            <li>
+                                Open Amazon Route 53.
+                            </li>
+                            <li>
+                                Use a hosted zone for your domain.
+                            </li>
+                            <li>
+                                Create an Alias record pointing to
+                                the CloudFront distribution.
+                            </li>
+                            <li>
+                                Confirm the custom domain is included
+                                in the CloudFront configuration.
+                            </li>
+                            <li>
+                                Test the website using HTTPS.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="deployment-task-card">
+                        <h4>🧪 Practice Mode</h4>
+
+                        <p>
+                            Don't own a domain? You do not need to
+                            purchase one for this learning mission.
+                            Continue using the CloudFront distribution
+                            domain and complete the DNS architecture
+                            verification below.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="deployment-feedback hidden"
+                    id="dns-feedback"
+                ></div>
+
+                <button
+                    type="button"
+                    id="complete-dns-stage"
+                >
+                    Continue to DNS Verification
+                </button>
+
+                <div
+                    class="deployment-check hidden"
+                    id="dns-deployment-check"
+                >
+                    <p class="section-label">
+                        DEPLOYMENT CHECK
+                    </p>
+
+                    <h4>Verify the DNS Design</h4>
+
+                    <p>
+                        NovaLaunch uses Route 53 for DNS and CloudFront
+                        to deliver the website. Which Route 53 record
+                        design should direct the domain to CloudFront?
+                    </p>
+
+                    <div
+                        class="deployment-check-options"
+                        id="dns-check-options"
+                    >
+                        <button
+                            type="button"
+                            class="dns-check-option"
+                            data-answer="A"
+                        >
+                            A. Alias record pointing to CloudFront
+                        </button>
+
+                        <button
+                            type="button"
+                            class="dns-check-option"
+                            data-answer="B"
+                        >
+                            B. MX record pointing to the S3 bucket
+                        </button>
+
+                        <button
+                            type="button"
+                            class="dns-check-option"
+                            data-answer="C"
+                        >
+                            C. TXT record pointing to CloudFront
+                        </button>
+
+                        <button
+                            type="button"
+                            class="dns-check-option"
+                            data-answer="D"
+                        >
+                            D. NS record pointing directly to S3
+                        </button>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="verify-dns-check"
+                        disabled
+                    >
+                        Verify Deployment
+                    </button>
+                </div>
+            </div>
+
+                <div
+                class="deployment-task hidden"
+                id="validation-stage"
+            >
+                <p class="section-label">
+                    DEPLOYMENT STAGE 5
+                </p>
+
+                <h3>Validate the Complete Solution</h3>
+
+                <p class="deployment-requirement">
+                    Before NovaLaunch can go live, verify that the
+                    complete architecture satisfies the original
+                    client requirements.
+                </p>
+
+                <div class="deployment-task-grid">
+                    <div class="deployment-task-card">
+                        <h4>🔎 Validation Checklist</h4>
+
+                        <p>
+                            Complete each check before finishing
+                            the deployment mission.
+                        </p>
+
+                        <label class="validation-item">
+                            <input
+                                type="checkbox"
+                                class="validation-check"
+                            >
+                            The website loads through CloudFront.
+                        </label>
+
+                        <label class="validation-item">
+                            <input
+                                type="checkbox"
+                                class="validation-check"
+                            >
+                            The S3 origin is not directly public.
+                        </label>
+
+                        <label class="validation-item">
+                            <input
+                                type="checkbox"
+                                class="validation-check"
+                            >
+                            HTTPS works without a certificate warning.
+                        </label>
+
+                        <label class="validation-item">
+                            <input
+                                type="checkbox"
+                                class="validation-check"
+                            >
+                            The architecture uses no unnecessary
+                            web servers.
+                        </label>
+                    </div>
+
+                    <div class="deployment-task-card">
+                        <h4>🏗️ Final Architecture</h4>
+
+                        <p>
+                            User → Route 53 → CloudFront →
+                            Private S3 Origin
+                        </p>
+
+                        <p>
+                            ACM provides the TLS certificate used
+                            by CloudFront for HTTPS.
+                        </p>
+
+                        <p>
+                            Practice Mode learners can validate using
+                            the CloudFront domain without purchasing
+                            a custom domain.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="deployment-feedback hidden"
+                    id="validation-feedback"
+                ></div>
+
+                <button
+                    type="button"
+                    id="complete-validation"
+                    disabled
+                >
+                    Complete Mission
+                </button>
+            </div>
+
+        
+         </section>
+
 
     </main>
 
