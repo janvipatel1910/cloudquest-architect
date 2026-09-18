@@ -943,8 +943,15 @@ validationChecks.forEach((checkbox) => {
 
 
 // Complete Mission 1
+    document.getElementById("xp-display");
 const xpDisplay =
     document.getElementById("xp-display");
+const savedXp =
+    localStorage.getItem("cloudquest-xp");
+
+if (savedXp) {
+    xpDisplay.textContent = savedXp + " XP";
+}
 
 completeValidationButton.addEventListener("click", () => {
     const allChecksComplete =
@@ -968,6 +975,7 @@ completeValidationButton.addEventListener("click", () => {
     
 completeValidationButton.classList.add("hidden");
 xpDisplay.textContent = "500 XP";
+localStorage.setItem("cloudquest-xp", "500");
 
     validationChecks.forEach((checkbox) => {
         checkbox.disabled = true;
