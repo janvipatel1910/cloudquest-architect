@@ -1,0 +1,229 @@
+{
+  "mission_id": "mission_02",
+  "title": "Traffic Surge",
+  "level": "Cloud Builder",
+  "xp_reward": 750,
+  "scenario": {
+    "company": "ShopWave",
+    "brief": "An online retailer is preparing for a major marketing campaign that is expected to create a large increase in customer traffic.",
+    "workload": "The company runs a dynamic web application that currently depends on a single EC2 instance and a relational database.",
+    "requirements": [
+      "Handle sudden traffic increases",
+      "Distribute incoming traffic",
+      "Automatically scale application servers",
+      "High availability",
+      "Managed relational database",
+      "Restrict direct access to application servers",
+      "Monitor application health and demand"
+    ]
+  },
+
+  "questions": [
+
+    {
+      "id": 1,
+      "title": "Distribute Incoming Traffic",
+      "question": "ShopWave currently runs its web application on a single EC2 instance. During major promotions, thousands of customers may arrive at the same time. Which AWS service should be introduced to distribute incoming application traffic across multiple EC2 instances?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Amazon Route 53"
+        },
+        {
+          "id": "B",
+          "text": "Application Load Balancer"
+        },
+        {
+          "id": "C",
+          "text": "Amazon RDS"
+        },
+        {
+          "id": "D",
+          "text": "Amazon S3"
+        }
+      ],
+      "correct_answer": "B",
+      "wrong_hint": "Think about which AWS service sits in front of application servers and distributes incoming HTTP or HTTPS requests across multiple healthy targets.",
+      "clue": "Place a load balancer in front of the application servers so incoming traffic can be distributed across healthy instances."
+    },
+    {
+      "id": 2,
+      "title": "Scale with Demand",
+      "question": "ShopWave expects traffic to rise sharply during promotions and fall again afterward. The company wants the number of EC2 application servers to adjust automatically based on demand. Which AWS feature best meets this requirement?",
+      "options": [
+        {
+          "id": "A",
+          "text": "EC2 Auto Scaling"
+        },
+        {
+          "id": "B",
+          "text": "Amazon S3 Versioning"
+        },
+        {
+          "id": "C",
+          "text": "AWS Direct Connect"
+        },
+        {
+          "id": "D",
+          "text": "Amazon Route 53"
+        }
+      ],
+      "correct_answer": "A",
+      "wrong_hint": "Look for the AWS capability that automatically increases or decreases the number of EC2 instances as application demand changes.",
+      "clue": "Use an Auto Scaling group behind the load balancer so application capacity can grow and shrink with demand."
+    },
+
+    {
+      "id": 3,
+      "title": "Design for High Availability",
+      "question": "ShopWave must remain available even if an Availability Zone has a failure. How should the EC2 application tier be designed?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Run all EC2 instances in a single Availability Zone"
+        },
+        {
+          "id": "B",
+          "text": "Run the Auto Scaling group across multiple Availability Zones"
+        },
+        {
+          "id": "C",
+          "text": "Replace the EC2 instances with Amazon S3"
+        },
+        {
+          "id": "D",
+          "text": "Use one larger EC2 instance"
+        }
+      ],
+      "correct_answer": "B",
+      "wrong_hint": "High availability means the application should not depend on a single Availability Zone.",
+      "clue": "Distribute application instances across multiple Availability Zones so the application can continue serving traffic if one zone has a failure."
+    },
+
+    {
+      "id": 4,
+      "title": "Choose the Database",
+      "question": "ShopWave stores customer and order data in a relational database. The team wants AWS to handle routine database tasks such as backups, patching and maintenance. Which service best meets this requirement?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Amazon DynamoDB"
+        },
+        {
+          "id": "B",
+          "text": "Amazon RDS"
+        },
+        {
+          "id": "C",
+          "text": "Amazon S3"
+        },
+        {
+          "id": "D",
+          "text": "Amazon EBS"
+        }
+      ],
+      "correct_answer": "B",
+      "wrong_hint": "The workload requires a relational database, and the team wants AWS to manage common database administration tasks.",
+      "clue": "Use a managed relational database so the application can store structured customer and order data without managing the database server itself."
+    },
+        {
+      "id": 5,
+      "title": "Protect the Application Tier",
+      "question": "ShopWave does not want customers on the internet to connect directly to its EC2 application servers. The servers should accept web traffic only from the Application Load Balancer. Which design best meets this requirement?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Allow HTTP and HTTPS from 0.0.0.0/0 directly to the EC2 instances"
+        },
+        {
+          "id": "B",
+          "text": "Configure the EC2 security group to allow application traffic only from the load balancer security group"
+        },
+        {
+          "id": "C",
+          "text": "Give every EC2 instance a public IP address"
+        },
+        {
+          "id": "D",
+          "text": "Disable security groups on the EC2 instances"
+        }
+      ],
+      "correct_answer": "B",
+      "wrong_hint": "The application servers should trust traffic coming through the load balancer rather than accepting web traffic directly from the internet.",
+      "clue": "Protect the application tier with security groups so EC2 instances accept application traffic only from the load balancer."
+    }
+],
+  "architecture": {
+    "slots": [
+      {
+        "id": "load_balancer",
+        "label": "Traffic Distribution",
+        "correct_component": "alb"
+      },
+      {
+        "id": "scaling",
+        "label": "Application Scaling",
+        "correct_component": "autoscaling"
+      },
+      {
+        "id": "availability",
+        "label": "High Availability",
+        "correct_component": "multi_az"
+      },
+      {
+        "id": "database",
+        "label": "Relational Database",
+        "correct_component": "rds"
+      },
+      {
+        "id": "security",
+        "label": "Application Security",
+        "correct_component": "security_groups"
+      }
+    ],
+
+    "components": [
+      {
+        "id": "alb",
+        "name": "Application Load Balancer"
+      },
+      {
+        "id": "autoscaling",
+        "name": "EC2 Auto Scaling Group"
+      },
+      {
+        "id": "multi_az",
+        "name": "Multiple Availability Zones"
+      },
+      {
+        "id": "rds",
+        "name": "Amazon RDS"
+      },
+      {
+        "id": "security_groups",
+        "name": "Security Groups"
+      },
+      {
+        "id": "s3",
+        "name": "Amazon S3"
+      },
+      {
+        "id": "cloudfront",
+        "name": "Amazon CloudFront"
+      },
+      {
+        "id": "direct_connect",
+        "name": "AWS Direct Connect"
+      }
+    ],
+
+    "review_requirements": [
+      "scalability",
+      "traffic_distribution",
+      "availability",
+      "managed_database",
+      "security",
+      "service_placement"
+    ]
+  }
+}
