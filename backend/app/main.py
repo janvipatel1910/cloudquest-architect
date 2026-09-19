@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 from backend.app.game import GameEngine
 
@@ -20,12 +21,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 games = {
     "mission_01": GameEngine("mission_01"),
     "mission_02": GameEngine("mission_02"),
 }
 
+# Keep Mission 1 as the default game so the existing frontend continues working.
 game = games["mission_01"]
+
 
 @app.get("/")
 def root():
@@ -44,9 +48,28 @@ def get_mission():
         "title": mission["title"],
         "level": mission["level"],
         "xp_reward": mission["xp_reward"],
-        "company": mission["company"],
         "scenario": mission["scenario"],
-        "requirements": mission["requirements"],
+        "total_questions": len(mission["questions"])
+    }
+
+
+@app.get("/api/missions/{mission_id}")
+def get_mission_by_id(mission_id: str):
+    if mission_id not in games:
+        return {
+            "status": "not_found",
+            "message": f"Mission not found: {mission_id}"
+        }
+
+    selected_game = games[mission_id]
+    mission = selected_game.mission
+
+    return {
+        "mission_id": mission["mission_id"],
+        "title": mission["title"],
+        "level": mission["level"],
+        "xp_reward": mission["xp_reward"],
+        "scenario": mission["scenario"],
         "total_questions": len(mission["questions"])
     }
 
@@ -77,9 +100,6 @@ def get_progress():
     return game.get_progress()
 
 
-from pydantic import BaseModel
-
-
 class AnswerSubmission(BaseModel):
     answer: str
 
@@ -92,6 +112,8 @@ def submit_answer(submission: AnswerSubmission):
         "result": result,
         "progress": game.get_progress()
     }
+
+
 @app.get("/api/architecture")
 def get_architecture():
     if not game.architecture_unlocked:
