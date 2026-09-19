@@ -20,8 +20,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-game = GameEngine()
+games = {
+    "mission_01": GameEngine("mission_01"),
+    "mission_02": GameEngine("mission_02"),
+}
 
+game = games["mission_01"]
 
 @app.get("/")
 def root():
