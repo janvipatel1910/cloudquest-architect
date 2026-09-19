@@ -3,21 +3,28 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parents[2]
-MISSION_FILE = BASE_DIR / "data" / "missions" / "mission_01.json"
-
+MISSIONS_DIR = BASE_DIR / "data" / "missions"
 
 class GameEngine:
-    def __init__(self):
-        self.mission = self._load_mission()
+    def __init__(self, mission_id="mission_01"):
+        self.mission_id = mission_id
+        self.mission = self._load_mission(mission_id)
         self.current_question = 1
         self.unlocked_clues = []
         self.architecture_unlocked = False
         self.architecture_approved = False
         self.deployment_unlocked = False
 
-    def _load_mission(self):
-        with open(MISSION_FILE, "r", encoding="utf-8") as file:
+    def _load_mission(self, mission_id):
+        mission_file = MISSIONS_DIR / f"{mission_id}.json"
+
+        if not mission_file.exists():
+            raise ValueError(f"Mission not found: {mission_id}")
+
+        with open(mission_file, "r", encoding="utf-8") as file:
             return json.load(file)
+
+
 
     def get_current_question(self):
         questions = self.mission["questions"]
