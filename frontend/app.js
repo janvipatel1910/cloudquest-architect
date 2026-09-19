@@ -23,6 +23,29 @@ async function loadQuestion() {
         const data = await response.json();
 
         if (data.status === "complete") {
+            const savedMissionComplete =
+                localStorage.getItem("mission-01-complete");
+
+            if (savedMissionComplete === "true") {
+                questionProgress.textContent =
+                    "Mission Complete";
+
+                questionText.textContent =
+                    "All architecture decisions are complete.";
+
+                answerOptions.innerHTML = "";
+
+                cluesUnlocked.textContent = "5";
+
+                feedback.classList.remove("hidden");
+                feedback.innerHTML =
+                    "<strong>🏆 MISSION COMPLETE</strong><br>" +
+                    "Architecture and deployment completed successfully.";
+
+                submitButton.classList.add("hidden");
+
+                return;
+            }
             questionProgress.textContent = "Decisions Complete";
             questionText.textContent =
                 "All architecture clues have been collected.";
@@ -943,14 +966,81 @@ validationChecks.forEach((checkbox) => {
 
 
 // Complete Mission 1
-    document.getElementById("xp-display");
+
 const xpDisplay =
     document.getElementById("xp-display");
+
 const savedXp =
     localStorage.getItem("cloudquest-xp");
 
 if (savedXp) {
     xpDisplay.textContent = savedXp + " XP";
+}
+
+const mission01Complete =
+    localStorage.getItem("mission-01-complete");
+if (mission01Complete === "true") {
+    const questionsStage =
+        document.getElementById("questions-stage");
+    const completedArchitecture = {
+        dns: "Amazon Route 53",
+        delivery: "Amazon CloudFront",
+        certificate: "AWS Certificate Manager",
+        origin: "Private Amazon S3 Bucket"
+    };
+
+    Object.entries(completedArchitecture).forEach(
+        ([slotId, componentName]) => {
+            const slot = document.querySelector(
+                `.architecture-slot[data-slot-id="${slotId}"]`
+            );
+
+            if (slot) {
+                const slotValue =
+                    slot.querySelector(".slot-value");
+
+                slotValue.textContent = componentName;
+                slot.classList.add("filled");
+            }
+        }
+    );
+
+    const boardStatus =
+        document.querySelector(".board-status");
+
+    if (boardStatus) {
+        boardStatus.textContent = "DESIGN APPROVED";
+    }
+    const architectureStage =
+        document.getElementById("architecture-stage");
+
+    const deploymentStage =
+        document.getElementById("deployment-stage");
+
+    const missionCompleteStage =
+        document.getElementById("mission-complete-stage");
+
+
+    questionsStage.classList.remove("locked", "active");
+    questionsStage.classList.add("completed");
+    questionsStage.querySelector("small").textContent =
+        "COMPLETE";
+
+    architectureStage.classList.add("completed");
+    architectureStage.classList.remove("locked", "active");
+    architectureStage.classList.add("completed");
+    architectureStage.querySelector("small").textContent =
+        "COMPLETE";
+
+    deploymentStage.classList.remove("locked", "active");
+    deploymentStage.classList.add("completed");
+    deploymentStage.querySelector("small").textContent =
+        "COMPLETE";
+
+    missionCompleteStage.classList.remove("locked", "active");
+    missionCompleteStage.classList.add("completed");
+    missionCompleteStage.querySelector("small").textContent =
+        "COMPLETE";
 }
 
 completeValidationButton.addEventListener("click", () => {
@@ -976,6 +1066,7 @@ completeValidationButton.addEventListener("click", () => {
 completeValidationButton.classList.add("hidden");
 xpDisplay.textContent = "500 XP";
 localStorage.setItem("cloudquest-xp", "500");
+localStorage.setItem("mission-01-complete", "true");
 
     validationChecks.forEach((checkbox) => {
         checkbox.disabled = true;
