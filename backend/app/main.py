@@ -105,7 +105,6 @@ def build_architecture_response(selected_game):
     }
 
 
-@app.get("/")
 def root():
     return {
         "app": "CloudQuest Architect",
