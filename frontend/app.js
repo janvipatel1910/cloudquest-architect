@@ -10,6 +10,8 @@ const answerOptions = document.getElementById("answer-options");
 const submitButton = document.getElementById("submit-answer");
 const cluesUnlocked = document.getElementById("clues-unlocked");
 const feedback = document.getElementById("feedback");
+const continueMission2Button =
+    document.getElementById("continue-mission-2");
 
 let selectedAnswer = null;
 let selectedComponent = null;
@@ -984,6 +986,7 @@ if (savedXp) {
 const mission01Complete =
     localStorage.getItem("mission-01-complete");
 if (mission01Complete === "true") {
+    continueMission2Button.classList.remove("hidden");
     const questionsStage =
         document.getElementById("questions-stage");
     const completedArchitecture = {
@@ -1071,6 +1074,7 @@ completeValidationButton.classList.add("hidden");
 xpDisplay.textContent = "500 XP";
 localStorage.setItem("cloudquest-xp", "500");
 localStorage.setItem("mission-01-complete", "true");
+continueMission2Button.classList.remove("hidden");
 
     validationChecks.forEach((checkbox) => {
         checkbox.disabled = true;
