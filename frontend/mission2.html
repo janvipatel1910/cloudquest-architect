@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Traffic Surge | CloudQuest Architect</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-icon">☁️</span>
+            <span>CloudQuest Architect</span>
+        </div>
+
+        <div class="player-info">
+            <span>Cloud Builder</span>
+            <span id="xp-display">500 XP</span>
+        </div>
+    </header>
+
+    <main class="game-container">
+
+        <!-- MISSION HEADER -->
+
+        <section class="mission-header">
+            <div>
+                <p class="eyebrow">MISSION 02</p>
+
+                <h1>Traffic Surge</h1>
+
+                <p class="mission-company">
+                    Client: ShopWave
+                </p>
+            </div>
+
+            <div class="clue-counter">
+                <span id="clues-unlocked">0</span>
+                <span>/ 5 clues</span>
+            </div>
+        </section>
+
+
+        <!-- CLIENT BRIEF -->
+
+        <section class="client-brief game-card">
+            <p class="section-label">CLIENT BRIEF</p>
+
+            <h2>
+                ShopWave is preparing for a major traffic surge.
+            </h2>
+
+            <p>
+                ShopWave runs a dynamic online retail application.
+                The current application relies on a single EC2
+                instance and a relational database.
+            </p>
+
+            <p>
+                A major marketing campaign is expected to create
+                sudden increases in customer traffic. Your job is
+                to redesign the AWS architecture so the application
+                can remain available and scale with demand.
+            </p>
+
+            <div class="requirements">
+                <span>✓ Handle sudden traffic increases</span>
+                <span>✓ Distribute incoming traffic</span>
+                <span>✓ Automatically scale application servers</span>
+                <span>✓ High availability</span>
+                <span>✓ Managed relational database</span>
+                <span>✓ Restrict direct access to application servers</span>
+                <span>✓ Monitor application health and demand</span>
+            </div>
+        </section>
+
+
+        <!-- MISSION PATH -->
+
+        <section class="mission-path game-card">
+            <p class="section-label">MISSION PATH</p>
+
+            <div class="path">
+
+                <div
+                    class="path-stage active"
+                    id="questions-stage"
+                >
+                    <span class="stage-number">1</span>
+
+                    <div>
+                        <strong>Architect Questions</strong>
+                        <small>ACTIVE</small>
+                    </div>
+                </div>
+
+                <span class="path-arrow">→</span>
+
+                <div
+                    class="path-stage locked"
+                    id="architecture-stage"
+                >
+                    <span class="stage-number">2</span>
+
+                    <div>
+                        <strong>Architecture Board</strong>
+                        <small>LOCKED</small>
+                    </div>
+                </div>
+
+                <span class="path-arrow">→</span>
+
+                <div
+                    class="path-stage locked"
+                    id="deployment-stage"
+                >
+                    <span class="stage-number">3</span>
+
+                    <div>
+                        <strong>AWS Deployment</strong>
+                        <small>LOCKED</small>
+                    </div>
+                </div>
+
+                <span class="path-arrow">→</span>
+
+                <div
+                    class="path-stage locked"
+                    id="mission-complete-stage"
+                >
+                    <span class="stage-number">4</span>
+
+                    <div>
+                        <strong>Mission Complete</strong>
+                        <small>LOCKED</small>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ARCHITECT DECISIONS -->
+
+        <section class="decision-area game-card">
+
+            <div class="decision-heading">
+
+                <div>
+                    <p class="section-label">
+                        ARCHITECT DECISION
+                    </p>
+
+                    <h2 id="question-progress">
+                        Decision 1 of 5
+                    </h2>
+                </div>
+
+                <span class="decision-status">
+                    CLUE LOCKED 🔒
+                </span>
+
+            </div>
+
+            <p
+                class="question-text"
+                id="question-text"
+            >
+                Loading mission decision...
+            </p>
+
+            <div
+                class="answer-options"
+                id="answer-options"
+            >
+            </div>
+
+            <div
+                class="feedback hidden"
+                id="feedback"
+            >
+            </div>
+
+            <button
+                type="button"
+                id="submit-answer"
+                disabled
+            >
+                Submit Decision
+            </button>
+
+        </section>
+
+
+        <!-- ARCHITECTURE BOARD -->
+
+        <section
+            class="architecture-board game-card hidden"
+            id="architecture-board"
+        >
+
+            <div class="board-heading">
+
+                <div>
+                    <p class="section-label">
+                        ARCHITECTURE BOARD
+                    </p>
+
+                    <h2>
+                        Build the ShopWave Architecture
+                    </h2>
+                </div>
+
+                <span class="board-status">
+                    DESIGN IN PROGRESS
+                </span>
+
+            </div>
+
+            <p class="board-intro">
+                Use the clues you unlocked to place the correct AWS
+                service or architecture choice in each layer.
+                Some options are distractors.
+            </p>
+
+
+            <div class="architecture-layout">
+
+                <!-- CLUES -->
+
+                <div class="clue-panel">
+
+                    <h3>🧩 Unlocked Clues</h3>
+
+                    <div id="architecture-clues">
+                    </div>
+
+                </div>
+
+
+                <!-- COMPONENT BANK -->
+
+                <div class="component-panel">
+
+                    <h3>☁️ AWS Component Bank</h3>
+
+                    <p class="panel-help">
+                        Select a component, then choose the architecture
+                        layer where you want to place it.
+                    </p>
+
+                    <div
+                        class="component-bank"
+                        id="component-bank"
+                    >
+                    </div>
+
+                </div>
+
+
+                <!-- ARCHITECTURE SLOTS -->
+
+                <div class="architecture-slots-panel">
+
+                    <h3>🏗️ Architecture Layers</h3>
+
+                    <div
+                        class="architecture-slots"
+                        id="architecture-slots"
+                    >
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="architecture-feedback hidden"
+                id="architecture-feedback"
+            >
+            </div>
+
+            <button
+                type="button"
+                id="submit-architecture"
+                disabled
+            >
+                Submit for Architect Review
+            </button>
+
+        </section>
+
+
+        <!-- DEPLOYMENT MISSION -->
+
+        <section
+            class="deployment-mission game-card hidden"
+            id="deployment-mission"
+        >
+
+            <div class="deployment-heading">
+
+                <div>
+                    <p class="section-label">
+                        AWS DEPLOYMENT MISSION
+                    </p>
+
+                    <h2>
+                        Scale ShopWave
+                    </h2>
+                </div>
+
+                <span class="deployment-status">
+                    READY TO DEPLOY
+                </span>
+
+            </div>
+
+            <p class="deployment-intro">
+                Your architecture has been approved. Now work through
+                the deployment stages and prove that the ShopWave
+                design can handle the upcoming traffic surge.
+            </p>
+
+
+            <!-- DEPLOYMENT PROGRESS -->
+
+            <div class="deployment-progress">
+
+                <div
+                    class="deployment-step active"
+                    id="deployment-progress-1"
+                >
+                    <span>1</span>
+                    <strong>Load Balancing</strong>
+                </div>
+
+                <div
+                    class="deployment-step"
+                    id="deployment-progress-2"
+                >
+                    <span>2</span>
+                    <strong>Auto Scaling</strong>
+                </div>
+
+                <div
+                    class="deployment-step"
+                    id="deployment-progress-3"
+                >
+                    <span>3</span>
+                    <strong>Database</strong>
+                </div>
+
+                <div
+                    class="deployment-step"
+                    id="deployment-progress-4"
+                >
+                    <span>4</span>
+                    <strong>Security</strong>
+                </div>
+
+                <div
+                    class="deployment-step"
+                    id="deployment-progress-5"
+                >
+                    <span>5</span>
+                    <strong>Validation</strong>
+                </div>
+
+            </div>
+
+
+            <!-- STAGE 1 -->
+
+            <div
+                class="deployment-task"
+                id="load-balancer-stage"
+            >
+
+                <p class="section-label">
+                    DEPLOYMENT STAGE 1
+                </p>
+
+                <h3>
+                    Distribute Customer Traffic
+                </h3>
+
+                <p class="deployment-requirement">
+                    ShopWave needs a highly available entry point
+                    that distributes incoming HTTP and HTTPS traffic
+                    across healthy application instances.
+                </p>
+
+                <div class="deployment-task-grid">
+
+                    <div class="deployment-task-card">
+
+                        <h4>🎯 Your Task</h4>
+
+                        <ul>
+                            <li>
+                                Create an Application Load Balancer.
+                            </li>
+
+                            <li>
+                                Place the load balancer across
+                                multiple Availability Zones.
+                            </li>
+
+                            <li>
+                                Create a target group for the
+                                ShopWave EC2 application instances.
+                            </li>
+
+                            <li>
+                                Configure health checks for the
+                                application targets.
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="deployment-task-card">
+
+                        <h4>💡 Why This Matters</h4>
+
+                        <p>
+                            The Application Load Balancer provides
+                            one entry point and sends requests only
+                            to healthy registered targets.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="deployment-feedback hidden"
+                    id="load-balancer-feedback"
+                >
+                </div>
+
+                <button
+                    type="button"
+                    id="complete-load-balancer-stage"
+                >
+                    I've Configured the Load Balancer
+                </button>
+
+
+                <div
+                    class="deployment-check hidden"
+                    id="load-balancer-check"
+                >
+
+                    <p class="section-label">
+                        DEPLOYMENT CHECK
+                    </p>
+
+                    <h4>
+                        Verify Traffic Distribution
+                    </h4>
+
+                    <p>
+                        Which component should receive incoming
+                        customer web traffic before the ShopWave
+                        EC2 application instances?
+                    </p>
+
+                    <div class="deployment-check-options">
+
+                        <button
+                            type="button"
+                            class="load-balancer-option"
+                            data-answer="A"
+                        >
+                            A. Amazon RDS
+                        </button>
+
+                        <button
+                            type="button"
+                            class="load-balancer-option"
+                            data-answer="B"
+                        >
+                            B. Application Load Balancer
+                        </button>
+
+                        <button
+                            type="button"
+                            class="load-balancer-option"
+                            data-answer="C"
+                        >
+                            C. Amazon S3
+                        </button>
+
+                        <button
+                            type="button"
+                            class="load-balancer-option"
+                            data-answer="D"
+                        >
+                            D. AWS Direct Connect
+                        </button>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        id="verify-load-balancer"
+                        disabled
+                    >
+                        Verify Deployment
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- STAGE 2 -->
+
+            <div
+                class="deployment-task hidden"
+                id="auto-scaling-stage"
+            >
+
+                <p class="section-label">
+                    DEPLOYMENT STAGE 2
+                </p>
+
+                <h3>
+                    Scale the Application with Demand
+                </h3>
+
+                <p class="deployment-requirement">
+                    ShopWave must automatically add or remove
+                    application capacity as customer demand changes.
+                </p>
+
+                <div class="deployment-task-grid">
+
+                    <div class="deployment-task-card">
+
+                        <h4>🎯 Your Task</h4>
+
+                        <ul>
+                            <li>
+                                Create an EC2 launch template.
+                            </li>
+
+                            <li>
+                                Create an Auto Scaling group.
+                            </li>
+
+                            <li>
+                                Distribute instances across
+                                multiple Availability Zones.
+                            </li>
+
+                            <li>
+                                Attach the Auto Scaling group
+                                to the load balancer target group.
+                            </li>
+
+                            <li>
+                                Configure a scaling policy based
+                                on application demand.
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="deployment-task-card">
+
+                        <h4>💡 Why This Matters</h4>
+
+                        <p>
+                            Auto Scaling adjusts application
+                            capacity while the load balancer
+                            distributes requests across the
+                            available healthy instances.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="deployment-feedback hidden"
+                    id="auto-scaling-feedback"
+                >
+                </div>
+
+                <button
+                    type="button"
+                    id="complete-auto-scaling-stage"
+                >
+                    I've Configured Auto Scaling
+                </button>
+
+
+                <div
+                    class="deployment-check hidden"
+                    id="auto-scaling-check"
+                >
+
+                    <p class="section-label">
+                        DEPLOYMENT CHECK
+                    </p>
+
+                    <h4>
+                        Verify Automatic Scaling
+                    </h4>
+
+                    <p>
+                        ShopWave traffic suddenly increases.
+                        Which AWS capability should automatically
+                        increase the number of EC2 application
+                        instances?
+                    </p>
+
+                    <div class="deployment-check-options">
+
+                        <button
+                            type="button"
+                            class="auto-scaling-option"
+                            data-answer="A"
+                        >
+                            A. EC2 Auto Scaling
+                        </button>
+
+                        <button
+                            type="button"
+                            class="auto-scaling-option"
+                            data-answer="B"
+                        >
+                            B. Amazon Route 53
+                        </button>
+
+                        <button
+                            type="button"
+                            class="auto-scaling-option"
+                            data-answer="C"
+                        >
+                            C. Amazon S3
+                        </button>
+
+                        <button
+                            type="button"
+                            class="auto-scaling-option"
+                            data-answer="D"
+                        >
+                            D. AWS Direct Connect
+                        </button>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        id="verify-auto-scaling"
+                        disabled
+                    >
+                        Verify Deployment
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- STAGE 3 -->
+
+            <div
+                class="deployment-task hidden"
+                id="database-stage"
+            >
+
+                <p class="section-label">
+                    DEPLOYMENT STAGE 3
+                </p>
+
+                <h3>
+                    Deploy the Managed Database
+                </h3>
+
+                <p class="deployment-requirement">
+                    ShopWave needs a managed relational database
+                    for structured customer, product, and order data.
+                </p>
+
+                <div class="deployment-task-grid">
+
+                    <div class="deployment-task-card">
+
+                        <h4>🎯 Your Task</h4>
+
+                        <ul>
+                            <li>
+                                Create an Amazon RDS database.
+                            </li>
+
+                            <li>
+                                Place the database in private
+                                network resources.
+                            </li>
+
+                            <li>
+                                Configure appropriate availability
+                                for the workload.
+                            </li>
+
+                            <li>
+                                Allow database connections only
+                                from the application tier.
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="deployment-task-card">
+
+                        <h4>💡 Why This Matters</h4>
+
+                        <p>
+                            Amazon RDS manages common database
+                            administration tasks while providing
+                            a relational database for the
+                            application.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="deployment-feedback hidden"
+                    id="database-feedback"
+                >
+                </div>
+
+                <button
+                    type="button"
+                    id="complete-database-stage"
+                >
+                    I've Configured the Database
+                </button>
+
+
+                <div
+                    class="deployment-check hidden"
+                    id="database-check"
+                >
+
+                    <p class="section-label">
+                        DEPLOYMENT CHECK
+                    </p>
+
+                    <h4>
+                        Verify the Database Choice
+                    </h4>
+
+                    <p>
+                        Which service provides the managed
+                        relational database required by ShopWave?
+                    </p>
+
+                    <div class="deployment-check-options">
+
+                        <button
+                            type="button"
+                            class="database-option"
+                            data-answer="A"
+                        >
+                            A. Amazon CloudFront
+                        </button>
+
+                        <button
+                            type="button"
+                            class="database-option"
+                            data-answer="B"
+                        >
+                            B. Amazon RDS
+                        </button>
+
+                        <button
+                            type="button"
+                            class="database-option"
+                            data-answer="C"
+                        >
+                            C. Amazon S3
+                        </button>
+
+                        <button
+                            type="button"
+                            class="database-option"
+                            data-answer="D"
+                        >
+                            D. Elastic Load Balancing
+                        </button>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        id="verify-database"
+                        disabled
+                    >
+                        Verify Deployment
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- STAGE 4 -->
+
+            <div
+                class="deployment-task hidden"
+                id="security-stage"
+            >
+
+                <p class="section-label">
+                    DEPLOYMENT STAGE 4
+                </p>
+
+                <h3>
+                    Protect the Application Tier
+                </h3>
+
+                <p class="deployment-requirement">
+                    Customers should reach the application through
+                    the load balancer rather than connecting
+                    directly to the EC2 application instances.
+                </p>
+
+                <div class="deployment-task-grid">
+
+                    <div class="deployment-task-card">
+
+                        <h4>🎯 Your Task</h4>
+
+                        <ul>
+                            <li>
+                                Create a security group for the
+                                Application Load Balancer.
+                            </li>
+
+                            <li>
+                                Create a separate security group
+                                for the application instances.
+                            </li>
+
+                            <li>
+                                Allow application traffic to the
+                                EC2 tier from the load balancer
+                                security group.
+                            </li>
+
+                            <li>
+                                Avoid exposing the application
+                                instances directly to customer
+                                web traffic.
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="deployment-task-card">
+
+                        <h4>💡 Why This Matters</h4>
+
+                        <p>
+                            Security-group references can restrict
+                            the application tier so requests arrive
+                            through the approved load-balancing
+                            layer.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="deployment-feedback hidden"
+                    id="security-feedback"
+                >
+                </div>
+
+                <button
+                    type="button"
+                    id="complete-security-stage"
+                >
+                    I've Configured Application Security
+                </button>
+
+
+                <div
+                    class="deployment-check hidden"
+                    id="security-check"
+                >
+
+                    <p class="section-label">
+                        DEPLOYMENT CHECK
+                    </p>
+
+                    <h4>
+                        Verify Application Access
+                    </h4>
+
+                    <p>
+                        What should the EC2 application security
+                        group use as the source for application
+                        traffic?
+                    </p>
+
+                    <div class="deployment-check-options">
+
+                        <button
+                            type="button"
+                            class="security-option"
+                            data-answer="A"
+                        >
+                            A. The entire internet
+                        </button>
+
+                        <button
+                            type="button"
+                            class="security-option"
+                            data-answer="B"
+                        >
+                            B. The load balancer security group
+                        </button>
+
+                        <button
+                            type="button"
+                            class="security-option"
+                            data-answer="C"
+                        >
+                            C. The S3 service
+                        </button>
+
+                        <button
+                            type="button"
+                            class="security-option"
+                            data-answer="D"
+                        >
+                            D. The Route 53 hosted zone
+                        </button>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        id="verify-security"
+                        disabled
+                    >
+                        Verify Deployment
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- STAGE 5 -->
+
+            <div
+                class="deployment-task hidden"
+                id="validation-stage"
+            >
+
+                <p class="section-label">
+                    DEPLOYMENT STAGE 5
+                </p>
+
+                <h3>
+                    Validate the Complete Solution
+                </h3>
+
+                <p class="deployment-requirement">
+                    Before the marketing campaign begins, confirm
+                    that the architecture satisfies ShopWave's
+                    scalability, availability, database, and
+                    security requirements.
+                </p>
+
+                <div class="deployment-task-grid">
+
+                    <div class="deployment-task-card">
+
+                        <h4>🔎 Validation Checklist</h4>
+
+                        <p>
+                            Complete every check before finishing
+                            Mission 02.
+                        </p>
+
+                        <label class="validation-item">
+                            <input
+                                type="checkbox"
+                                class="validation-check"
+                            >
+                            Incoming traffic reaches the
+                            Application Load Balancer first.
+                        </label>
+
+                        <label class="validation-item">
+                            <input
+                                type="checkbox"
+                                class="validation-check"
+                            >
+                            EC2 capacity can scale automatically
+                            with demand.
+                        </label>
+
+                        <label class="validation-item">
+                            <input
+                                type="checkbox"
+                                class="validation-check"
+                            >
+                            Application instances are distributed
+                            across multiple Availability Zones.
+                        </label>
+
+                        <label class="validation-item">
+                            <input
+                                type="checkbox"
+                                class="validation-check"
+                            >
+                            ShopWave uses Amazon RDS for its
+                            relational database.
+                        </label>
+
+                        <label class="validation-item">
+                            <input
+                                type="checkbox"
+                                class="validation-check"
+                            >
+                            Application instances accept application
+                            traffic from the load balancer security
+                            group rather than directly from users.
+                        </label>
+
+                    </div>
+
+
+                    <div class="deployment-task-card">
+
+                        <h4>🏗️ Final Architecture</h4>
+
+                        <p>
+                            Users → Application Load Balancer →
+                            EC2 Auto Scaling Group
+                        </p>
+
+                        <p>
+                            Application instances run across
+                            multiple Availability Zones.
+                        </p>
+
+                        <p>
+                            Application Tier → Amazon RDS
+                        </p>
+
+                        <p>
+                            Security Groups control communication
+                            between the public entry point,
+                            application tier, and database tier.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="deployment-feedback hidden"
+                    id="validation-feedback"
+                >
+                </div>
+
+                <button
+                    type="button"
+                    id="complete-validation"
+                    disabled
+                >
+                    Complete Mission
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="mission2.js"></script>
+
+</body>
+</html>
