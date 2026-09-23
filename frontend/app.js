@@ -1,4 +1,8 @@
-const API_BASE_URL = "http://127.0.0.1:8002";
+const API_BASE_URL =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+        ? "http://127.0.0.1:8002"
+        : window.location.origin;
 
 const questionText = document.getElementById("question-text");
 const questionProgress = document.getElementById("question-progress");
